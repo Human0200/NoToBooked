@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>NoToBooked</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header class="header">
+      <div class="logo-wrapper">
+        <img class="logo-img" src="icons/icon-128.png" alt="Logo">
+        <div class="logo-text">
+          <h1>NoToBooked</h1>
+          <p>Фильтр забронированных товаров</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="section-title">Выберите режим фильтрации</div>
+      
+      <div class="options-list">
+        <label class="option-card" for="mode-hide">
+          <input type="radio" name="filterMode" id="mode-hide" value="hide" checked>
+          <div class="card-content">
+            <div class="icon-box icon-hide">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+              </svg>
+            </div>
+            <div class="text-box">
+              <div class="option-title">Скрывать полностью</div>
+              <div class="option-desc">Полностью убирает забронированные товары с экрана</div>
+            </div>
+          </div>
+          <span class="checkmark"></span>
+        </label>
+
+        <label class="option-card" for="mode-blur">
+          <input type="radio" name="filterMode" id="mode-blur" value="blur">
+          <div class="card-content">
+            <div class="icon-box icon-blur">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+              </svg>
+            </div>
+            <div class="text-box">
+              <div class="option-title">Размывать</div>
+              <div class="option-desc">Размывает объявление. Показ по клику на карточку</div>
+            </div>
+          </div>
+          <span class="checkmark"></span>
+        </label>
+
+        <label class="option-card" for="mode-disabled">
+          <input type="radio" name="filterMode" id="mode-disabled" value="disabled">
+          <div class="card-content">
+            <div class="icon-box icon-disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </div>
+            <div class="text-box">
+              <div class="option-title">Не фильтровать</div>
+              <div class="option-desc">Показывает объявления без изменений</div>
+            </div>
+          </div>
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div id="status-message" class="status-msg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="status-icon">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Настройки автоматически сохранены</span>
+      </div>
+    </footer>
+    
+    <div class="github-link-container">
+      <a href="https://github.com/mbs0ft/NoToBooked" target="_blank" class="github-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+          <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+        </svg>
+        Проект на GitHub
+      </a>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
