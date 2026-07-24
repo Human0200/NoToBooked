@@ -1,4 +1,5 @@
 # NoToBooked - фильтр забронированных товаров на Авито <img width="48" height="48" alt="icon-48" src="https://github.com/user-attachments/assets/a9c69a8c-61b8-4a2d-bf13-7a7e72cffbf3" />
+<img width="1280" height="800" alt="Frame 15 (2)" src="https://github.com/user-attachments/assets/08839829-2be1-4308-9dfa-17c6867b2325" />
 
 
 Расширение для браузера, которое автоматически фильтрует (скрывает или размывает) забронированные товары в поиске и на главной странице Авито.
@@ -11,9 +12,9 @@
 ---
 
 ## Скачать расширение
-**Microsoft Edge Add-ons** - TBD
+[**Microsoft Edge Add-ons**](https://microsoftedge.microsoft.com/addons/detail/notobooked-%D1%84%D0%B8%D0%BB%D1%8C%D1%82%D1%80-%D0%B7%D0%B0%D0%B1%D1%80%D0%BE/niklocdjplcaadlbkjahjcngagdppopf)
 
-**Firefox Add-ons** - TBD
+[**Firefox Add-ons**](https://addons.mozilla.org/ru/firefox/addon/notobooked-%D1%84%D0%B8%D0%BB%D1%8C%D1%82%D1%80-%D0%B4%D0%BB%D1%8F-%D0%B0%D0%B2%D0%B8%D1%82%D0%BE/)
 
 
 ---
