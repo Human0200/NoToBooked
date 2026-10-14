@@ -1,14 +1,49 @@
 let currentAction = 'hide';
+let removeHiddenElements = false;
+const REMOVE_DELAY_MS = 300;
+const pendingRemovalTimeouts = new Map();
 
-chrome.storage.sync.get({ actionType: 'hide' }, (items) => {
+function cancelPendingRemoval(layoutTarget) {
+  const timeoutId = pendingRemovalTimeouts.get(layoutTarget);
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+    pendingRemovalTimeouts.delete(layoutTarget);
+  }
+}
+
+function cancelAllPendingRemovals() {
+  pendingRemovalTimeouts.forEach((timeoutId) => clearTimeout(timeoutId));
+  pendingRemovalTimeouts.clear();
+}
+
+chrome.storage.sync.get({ actionType: 'hide', removeHidden: false }, (items) => {
   currentAction = items.actionType;
+  removeHiddenElements = items.removeHidden;
   runFilter();
 });
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
-  if (areaName === 'sync' && changes.actionType) {
+  if (areaName !== 'sync') {
+    return;
+  }
+
+  let shouldRerun = false;
+
+  if (changes.actionType) {
     currentAction = changes.actionType.newValue;
     resetAllCardsManualUnblurState();
+    shouldRerun = true;
+  }
+
+  if (changes.removeHidden) {
+    removeHiddenElements = changes.removeHidden.newValue;
+    if (!removeHiddenElements) {
+      cancelAllPendingRemovals();
+    }
+    shouldRerun = true;
+  }
+
+  if (shouldRerun) {
     runFilter();
   }
 });
@@ -33,27 +68,41 @@ function getCardContentTarget(card) {
 }
 
 function getCardLayoutWrapper(card) {
-  const wrapper = card.closest('[class*="styles-item-"], [class*="styles-compactGridItem-"], [class*="iva-item-root-"]');
+  const wrapper = card.closest('[class*="styles-item-"], [class*="styles-compactGridItem-"], [class*="iva-item-root-"], [class*="compactGridItem-"], [class*="js-item-"]');
   return wrapper || card;
 }
 
 function applyFilterToCard(card) {
   const hasBadge = isBooked(card);
+  const layoutTarget = getCardLayoutWrapper(card);
 
   if (!hasBadge) {
+    cancelPendingRemoval(layoutTarget);
     resetCardStyles(card);
     return;
   }
 
   const target = getCardContentTarget(card);
-  const layoutTarget = getCardLayoutWrapper(card);
 
   if (currentAction === 'disabled') {
+    cancelPendingRemoval(layoutTarget);
     resetCardStyles(card);
   } else if (currentAction === 'hide') {
     resetCardStyles(card);
     layoutTarget.classList.add('notobooked-item-hidden');
+
+    if (removeHiddenElements && !pendingRemovalTimeouts.has(layoutTarget)) {
+      const timeoutId = setTimeout(() => {
+        pendingRemovalTimeouts.delete(layoutTarget);
+        if (layoutTarget.isConnected) {
+          layoutTarget.remove();
+        }
+      }, REMOVE_DELAY_MS);
+      pendingRemovalTimeouts.set(layoutTarget, timeoutId);
+    }
   } else if (currentAction === 'blur') {
+    cancelPendingRemoval(layoutTarget);
+
     if (card.getAttribute('data-notobooked-manually-unblurred') === 'true') {
       layoutTarget.classList.remove('notobooked-item-hidden');
       target.classList.remove('notobooked-item-blurred-active');
